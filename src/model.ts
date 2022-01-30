@@ -17,7 +17,7 @@ export type CdkFunctionElement<ComponentProps = {}> = CdkBaseElement<
 >;
 
 /** @internal */
-type CdkConstructElement = CdkBaseElement<
+export type CdkConstructElement = CdkBaseElement<
   typeof cdkConstructType,
   { children: Construct }
 >;

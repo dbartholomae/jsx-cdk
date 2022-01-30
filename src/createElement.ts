@@ -2,7 +2,15 @@
  * @packageDocumentation
  * @internal
  */
-import { Component, CdkNode, CdkChildren, CdkFunctionElement } from "./model";
+import {
+  Component,
+  CdkNode,
+  CdkChildren,
+  CdkFunctionElement,
+  cdkConstructType,
+  CdkConstructElement,
+} from "./model";
+import { Construct } from "constructs";
 
 export function createElement(
   component: Component,
@@ -12,7 +20,7 @@ export function createElement(
 export function createElement(
   typeOrComponent: string | Component,
   attributes: Record<string, unknown> | null,
-  ...children: CdkChildren[] | Promise<CdkChildren>[]
+  ...children: CdkChildren[] | Construct[]
 ): CdkNode {
   if (typeof typeOrComponent === "function") {
     return createComponentElement(
@@ -20,6 +28,9 @@ export function createElement(
       attributes,
       children as CdkNode[]
     );
+  }
+  if (typeOrComponent === cdkConstructType) {
+    return createConstructElement(children[0] as Construct);
   }
 
   throw new TypeError(
@@ -36,6 +47,16 @@ function createComponentElement(
     type: component,
     props: {
       ...(attributes ?? {}),
+      children,
+    },
+    key: null,
+  };
+}
+
+function createConstructElement(children: Construct): CdkConstructElement {
+  return {
+    type: cdkConstructType,
+    props: {
       children,
     },
     key: null,

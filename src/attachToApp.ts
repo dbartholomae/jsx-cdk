@@ -11,13 +11,14 @@ function compileNode(node: CdkNode, scope: Construct) {
     return;
   }
   const { children, ...props } = node.props;
-  const {
-    props: { children: newScope },
-  } = node.type(props, { scope });
+  const newNode = node.type(props, { scope });
+  if (newNode.type !== cdkConstructType) {
+    compileNode(newNode, scope);
+  }
   if (!children) {
     return;
   }
-  children.forEach((node) => compileNode(node, newScope));
+  children.forEach((node) => compileNode(node, newNode.props.children));
 }
 
 export function attachToApp(node: CdkNode, app: App) {
