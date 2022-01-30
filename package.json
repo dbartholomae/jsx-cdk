@@ -1,7 +1,7 @@
 {
-  "name": "jsx-md",
-  "version": "4.0.0",
-  "description": "Generate markdown files with a React-like syntax.",
+  "name": "jsx-cdk",
+  "version": "1.0.0",
+  "description": "Generate AWS CDK infrastructure with a React-like syntax.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -18,16 +18,16 @@
     "lib"
   ],
   "keywords": [
-    "Markdown",
+    "AWS",
     "generator",
     "JSX",
-    "MD",
-    "Readme"
+    "CDK",
+    "React"
   ],
   "author": "Daniel Bartholomae (daniel@bartholomae.name)",
   "license": "MIT",
-  "homepage": "https://dbartholomae.github.io/jsx-md",
-  "repository": "git@github.com:dbartholomae/jsx-md.git",
+  "homepage": "https://dbartholomae.github.io/jsx-cdk",
+  "repository": "git@github.com:dbartholomae/jsx-cdk.git",
   "devDependencies": {
     "@commitlint/cli": "^16.0.1",
     "@commitlint/config-conventional": "^16.0.0",
