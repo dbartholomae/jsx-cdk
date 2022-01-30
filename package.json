@@ -1,0 +1,59 @@
+{
+  "name": "jsx-md",
+  "version": "4.0.0",
+  "description": "Generate markdown files with a React-like syntax.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "rimraf lib && tsc -p tsconfig.build.json",
+    "docs": "typedoc && touch docs/.nojekyll",
+    "lint": "eslint src/**/*.ts src/**/*.tsx examples/**/*.tsx",
+    "pretest": "npm run build",
+    "test": "jest && pkg-ok"
+  },
+  "engines": {
+    "node": ">=12.4.0"
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "Markdown",
+    "generator",
+    "JSX",
+    "MD",
+    "Readme"
+  ],
+  "author": "Daniel Bartholomae (daniel@bartholomae.name)",
+  "license": "MIT",
+  "homepage": "https://dbartholomae.github.io/jsx-md",
+  "repository": "git@github.com:dbartholomae/jsx-md.git",
+  "devDependencies": {
+    "@commitlint/cli": "^16.0.1",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/git": "^10.0.0",
+    "@semantic-release/github": "^8.0.0",
+    "@types/jest": "^27.0.0",
+    "@types/react": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.0",
+    "husky": "^7.0.0",
+    "jest": "^27.0.1",
+    "jest-extended": "^1.1.0",
+    "lint-staged": "^12.0.2",
+    "pkg-ok": "^2.3.1",
+    "prettier": "^2.1.0",
+    "rimraf": "^3.0.2",
+    "semantic-release": "^19.0.2",
+    "ts-jest": "^27.0.1",
+    "ts-node": "^10.0.0",
+    "tslib": "^2.0.1",
+    "typedoc": "0.22.11",
+    "typescript": "^4.0.2"
+  }
+}
