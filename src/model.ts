@@ -11,7 +11,7 @@ interface CdkBaseElement<Type, Props extends {} = {}> {
 }
 
 /** @internal */
-type CdkFunctionElement<ComponentProps = {}> = CdkBaseElement<
+export type CdkFunctionElement<ComponentProps = {}> = CdkBaseElement<
   Component<ComponentProps>,
   ComponentProps & { children?: CdkNode[] }
 >;
@@ -30,6 +30,8 @@ export type CdkNil = false | null | undefined;
 
 /** Internal representation of constructs. */
 export type CdkNode = CdkElement | CdkNil;
+
+export type CdkChildren = CdkElement | CdkChildren[];
 
 /** A functional component that creates constructs. */
 export type Component<ComponentProps = unknown> = (

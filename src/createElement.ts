@@ -2,7 +2,7 @@
  * @packageDocumentation
  * @internal
  */
-import { Component, CdkNode, CdkChildren } from "./model";
+import { Component, CdkNode, CdkChildren, CdkFunctionElement } from "./model";
 
 export function createElement(
   component: Component,
@@ -31,12 +31,12 @@ function createComponentElement(
   component: Component,
   attributes: Record<string, unknown> | null,
   children: CdkNode[]
-): CdkNode {
+): CdkFunctionElement {
   return {
     type: component,
     props: {
       ...(attributes ?? {}),
-      children: children.length <= 1 ? children[0] : children,
+      children,
     },
     key: null,
   };
