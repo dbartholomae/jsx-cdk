@@ -1,8 +1,8 @@
 /* @jsx h */
-import h, { attachToApp, Stack, Queue } from "jsx-cdk";
+import h, { attachToApp, Stack, Queue } from "../src";
 import { App, Duration, StackProps } from "aws-cdk-lib";
 
-const CdkExampleStack = (props: StackProps) => {
+const CdkExampleStack = (props: StackProps & { key: string }) => {
   return (
     <Stack {...props}>
       <Queue key="CdkExampleQueue" visibilityTimeout={Duration.seconds(300)} />

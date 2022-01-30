@@ -1,32 +1,53 @@
+import { Construct } from "constructs";
+
 /** @internal */
-interface CdkElement<Type, Props = unknown> {
+export const cdkConstructType = "cdkConstruct" as const;
+
+/** @internal */
+interface CdkBaseElement<Type, Props extends {} = {}> {
   type: Type;
   props: Props;
   key: string | number | null;
 }
 
 /** @internal */
-/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-export type CdkFunctionElement<Props = any> = CdkElement<
-  Component<Props>,
-  Props
+type CdkFunctionElement<ComponentProps = {}> = CdkBaseElement<
+  Component<ComponentProps>,
+  ComponentProps & { children?: CdkNode[] }
 >;
+
+/** @internal */
+type CdkConstructElement = CdkBaseElement<
+  typeof cdkConstructType,
+  { children: Construct }
+>;
+
+/** @internal */
+type CdkElement = CdkFunctionElement | CdkConstructElement;
 
 /** Nil types that get ignored. */
 export type CdkNil = false | null | undefined;
 
 /** Internal representation of constructs. */
-export type CdkNode<Props = unknown> = CdkFunctionElement<Props> | CdkNil;
-
-/** Nested constructs type. */
-export type CdkChildren = CdkNode | CdkChildren[];
-
-/** Helper type for creating Elements that accept other constructs as children. */
-export type PropsWithChildren<AdditionalProps = unknown> = AdditionalProps & {
-  children?: CdkChildren;
-};
+export type CdkNode = CdkElement | CdkNil;
 
 /** A functional component that creates constructs. */
 export type Component<ComponentProps = unknown> = (
-  props: ComponentProps
-) => CdkNode | null;
+  props: ComponentProps,
+  context: { scope: Construct }
+) => CdkConstructElement;
+
+/** @internal */
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+declare global {
+  /* eslint-disable-next-line @typescript-eslint/no-namespace */
+  namespace JSX {
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+    interface IntrinsicElements {
+      cdkConstruct: {
+        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+        children?: Construct;
+      };
+    }
+  }
+}
