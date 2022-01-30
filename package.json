@@ -28,6 +28,9 @@
   "license": "MIT",
   "homepage": "https://dbartholomae.github.io/jsx-cdk",
   "repository": "git@github.com:dbartholomae/jsx-cdk.git",
+  "dependencies": {
+    "aws-cdk-lib": "^2.10.0"
+  },
   "devDependencies": {
     "@commitlint/cli": "^16.0.1",
     "@commitlint/config-conventional": "^16.0.0",

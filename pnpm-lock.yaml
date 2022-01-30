@@ -10,6 +10,7 @@ specifiers:
   '@types/react': ^17.0.0
   '@typescript-eslint/eslint-plugin': ^5.4.0
   '@typescript-eslint/parser': ^5.4.0
+  aws-cdk-lib: ^2.10.0
   eslint: ^8.2.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-prettier: ^4.0.0
@@ -27,6 +28,9 @@ specifiers:
   tslib: ^2.0.1
   typedoc: 0.22.11
   typescript: ^4.0.2
+
+dependencies:
+  aws-cdk-lib: 2.10.0
 
 devDependencies:
   '@commitlint/cli': 16.1.0
@@ -1527,6 +1531,23 @@ packages:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
     engines: {node: '>= 4.0.0'}
     dev: true
+
+  /aws-cdk-lib/2.10.0:
+    resolution: {integrity: sha512-sMQvQzDqfHumbDOwH2nnyu/sKl7HMi4LkIDRlhW/dLZhYiLvEbwA8ZUclY9g5NuSihF+3G9x1uOjBETBGp+rTg==}
+    engines: {node: '>= 14.15.0'}
+    peerDependencies:
+      constructs: ^10.0.0
+    dev: false
+    bundledDependencies:
+      - '@balena/dockerignore'
+      - case
+      - fs-extra
+      - ignore
+      - jsonschema
+      - minimatch
+      - punycode
+      - semver
+      - yaml
 
   /babel-jest/27.3.1_@babel+core@7.11.4:
     resolution: {integrity: sha512-SjIF8hh/ir0peae2D6S6ZKRhUy7q/DnpH7k/V6fT4Bgs/LXXUztOpX4G2tCgq8mLo5HA9mN6NmlFMeYtKmIsTQ==}
