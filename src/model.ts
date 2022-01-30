@@ -1,11 +1,5 @@
 /** @internal */
-export const MdFragmentType = "mdFragment" as const;
-
-/** @internal */
-export const MdAwaitType = "mdAwait" as const;
-
-/** @internal */
-interface MdElement<Type, Props = unknown> {
+interface CdkElement<Type, Props = unknown> {
   type: Type;
   props: Props;
   key: string | number | null;
@@ -13,64 +7,26 @@ interface MdElement<Type, Props = unknown> {
 
 /** @internal */
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-export type MdFunctionElement<Props = any> = MdElement<Component<Props>, Props>;
-
-/** @internal */
-export type MdFragmentElement = MdElement<
-  typeof MdFragmentType,
-  PropsWithChildren
+export type CdkFunctionElement<Props = any> = CdkElement<
+  Component<Props>,
+  Props
 >;
-
-/** @internal */
-export type MdAwaitElement = MdElement<
-  typeof MdAwaitType,
-  { children: Promise<MarkdownChildren> }
->;
-
-/** Internal representation of markdown before rendering. */
-export type MarkdownElement<Props = unknown> =
-  | MdFunctionElement<Props>
-  | MdFragmentElement
-  | MdAwaitElement;
-
-/** Primitive text types that get converted into text. */
-export type MarkdownText = string | number;
 
 /** Nil types that get ignored. */
-export type MarkdownNil = false | null | undefined;
+export type CdkNil = false | null | undefined;
 
-/** Any primitive Markdown type. */
-export type MarkdownNode = MarkdownNil | MarkdownText | MarkdownElement;
+/** Internal representation of constructs. */
+export type CdkNode<Props = unknown> = CdkFunctionElement<Props> | CdkNil;
 
-/** Nested Markdown type. */
-export type MarkdownChildren = MarkdownNode | MarkdownChildren[];
+/** Nested constructs type. */
+export type CdkChildren = CdkNode | CdkChildren[];
 
-/** Helper type for creating Elements that accept other markdown as children. */
-export type PropsWithChildren<
-  AdditionalProps = unknown
-> = AdditionalProps & {
-  children?: MarkdownChildren;
+/** Helper type for creating Elements that accept other constructs as children. */
+export type PropsWithChildren<AdditionalProps = unknown> = AdditionalProps & {
+  children?: CdkChildren;
 };
 
-/** A functional component that creates Markdown elements. */
+/** A functional component that creates constructs. */
 export type Component<ComponentProps = unknown> = (
   props: ComponentProps
-) => MarkdownElement | null;
-
-/** @internal */
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-declare global {
-  /* eslint-disable-next-line @typescript-eslint/no-namespace */
-  namespace JSX {
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    interface IntrinsicElements {
-      mdFragment: {
-        children?: MarkdownChildren;
-      };
-      mdAwait: {
-        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-        children?: Promise<MarkdownElement<any> | null>;
-      };
-    }
-  }
-}
+) => CdkNode | null;

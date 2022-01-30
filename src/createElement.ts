@@ -2,54 +2,23 @@
  * @packageDocumentation
  * @internal
  */
-import {
-  Component,
-  MarkdownElement,
-  MarkdownNode,
-  MdFragmentType,
-  MdAwaitType,
-  MarkdownChildren,
-} from "./model";
+import { Component, CdkNode, CdkChildren } from "./model";
 
 export function createElement(
   component: Component,
   attributes: Record<string, unknown> | null,
-  ...children: MarkdownChildren[]
-): MarkdownElement;
-export function createElement(
-  nodeType: typeof MdFragmentType,
-  attributes: null,
-  ...children: MarkdownChildren[]
-): MarkdownElement;
-export function createElement(
-  nodeType: typeof MdAwaitType,
-  attributes: null,
-  children: Promise<MarkdownChildren>
-): MarkdownElement;
+  ...children: CdkChildren[]
+): CdkNode;
 export function createElement(
   typeOrComponent: string | Component,
   attributes: Record<string, unknown> | null,
-  ...children: MarkdownChildren[] | Promise<MarkdownChildren>[]
-): MarkdownElement {
-  if (typeOrComponent === MdFragmentType) {
-    return createFragmentElement(children as MarkdownNode[]);
-  }
-
-  if (typeOrComponent === MdAwaitType) {
-    // Throws error if is it not exactly one children.
-    if (children.length !== 1) {
-      throw new TypeError(
-        `Received ${children.length} promises, expected a single promise.`
-      );
-    }
-    return createPromiseElement(children[0] as Promise<MarkdownChildren>);
-  }
-
+  ...children: CdkChildren[] | Promise<CdkChildren>[]
+): CdkNode {
   if (typeof typeOrComponent === "function") {
     return createComponentElement(
       typeOrComponent as Component,
       attributes,
-      children as MarkdownNode[]
+      children as CdkNode[]
     );
   }
 
@@ -58,31 +27,11 @@ export function createElement(
   );
 }
 
-function createFragmentElement(children: MarkdownNode[]): MarkdownElement {
-  return {
-    type: MdFragmentType,
-    props: {
-      children: children.flat(),
-    },
-    key: null,
-  };
-}
-
-function createPromiseElement(
-  children: Promise<MarkdownChildren>
-): MarkdownElement {
-  return {
-    type: MdAwaitType,
-    props: { children },
-    key: null,
-  };
-}
-
 function createComponentElement(
   component: Component,
   attributes: Record<string, unknown> | null,
-  children: MarkdownNode[]
-): MarkdownElement {
+  children: CdkNode[]
+): CdkNode {
   return {
     type: component,
     props: {
